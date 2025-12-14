@@ -19,10 +19,17 @@ export default defineConfig({
   },
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"), // O Vite roda daqui
+  
+  // ===============================================
+  // ALTERAÇÕES CHAVE PARA O DEPLOY (Vercel)
+  // ===============================================
+  base: '/', // Garante que os caminhos de assets sejam absolutos
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    outDir: "dist", // CORREÇÃO: O Vercel espera 'dist' (dentro de 'client')
     emptyOutDir: true,
   },
+  // ===============================================
+
   server: {
     port: 3000,
     strictPort: false,
@@ -38,7 +45,7 @@ export default defineConfig({
     ],
     fs: {
       strict: true,
-      // ADICIONE ISTO: Permite que o Vite busque arquivos fora da pasta 'client'
+      // Permite que o Vite busque arquivos fora da pasta 'client'
       allow: [
         path.resolve(import.meta.dirname), // Permite acesso à raiz do projeto (onde está a pasta shared)
       ],

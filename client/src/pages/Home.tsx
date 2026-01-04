@@ -40,7 +40,7 @@ export default function Home() {
       hero: {
         location: "Bahia - Brasil | Exportação Mundial",
         title: "Lions Alpha Kennel",
-        subtitle: "Elite Bloodlines. DNA Alfa.",
+        subtitle: "Melhores Bullys. DNA Alpha.",
         desc: "American Bully XL e Brazilian Bull com genética de elite reconhecida internacionalmente.",
         btnDogs: "Conheça Nossa Matilha",
         btnContact: "Contato Internacional",
@@ -170,7 +170,7 @@ export default function Home() {
       partners: {
         title: "Nossos Parceiros",
         subtitle: "Parcerias estratégicas que garantem o melhor para nossos clientes.",
-        petzText: "Parceiro oficial para produtos e acessórios pet de alta qualidade.",
+        petzText: "Garanta 10% de desconto em todo o pet shop! Use o cupom SIMBAEBULMA",
         btn: "Visitar Parceiro"
       }
     },

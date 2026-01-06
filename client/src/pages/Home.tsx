@@ -18,21 +18,42 @@ import {
   Dna,
   Handshake,
   ExternalLink,
-  Languages 
+  Languages,
+  Dog,
+  Info,
+  Mail,
+  Newspaper
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function Home() {
+  const { t: tI18n, i18n } = useTranslation();
+  const [activeTab, setActiveTab] = useState("home");
+
+  // Sincronizar abas com hash da URL para navegação externa/links
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (["about", "dogs", "available", "kennel", "blog", "contact", "partners"].includes(hash)) {
+        setActiveTab(hash === "kennel" ? "available" : hash);
+      } else if (!hash || hash === "") {
+        setActiveTab("home");
+      }
+    };
+
+    window.addEventListener("hashchange", handleHashChange);
+    handleHashChange(); // Check on mount
+
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, []);
+
   // Estado para controlar a cor selecionada na galeria
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   
   // 1. ESTADO DO IDIOMA ('pt' ou 'en')
-  const [lang, setLang] = useState("pt");
-
-  // Função para alternar o idioma
-  const toggleLanguage = () => {
-    setLang(prev => prev === "pt" ? "en" : "pt");
-  };
+  const lang = i18n.language as "pt" | "en";
 
   // 2. DICIONÁRIO DE TRADUÇÕES
   const translations = {
@@ -66,9 +87,9 @@ export default function Home() {
         list: [
           {
             name: "Simba",
-            type: "American Bully XL",
+            type: "American Bully Standart",
             color: "Blue Fawn",
-            bloodline: "The Hulk x Daxline",
+            bloodline: "American Bully Standart",
             image: "/images/Simba.png",
             features: ["Estrutura XXL", "Temperamento Equilibrado", "Genética Elite"],
             link: "https://www.instagram.com/reel/DNdLBvsgNDP/"
@@ -77,16 +98,16 @@ export default function Home() {
             name: "Bardock",
             type: "Brazilian Bull",
             color: "Tri-Color",
-            bloodline: "Pit Monster Elite",
+            bloodline: "Brazilian Bull",
             image: "/images/Bardock.png",
             features: ["Massa Muscular", "Cabeça Poderosa", "Linhagem Exclusiva"],
             link: "https://www.instagram.com/p/DPr9jc7CbPL/"
           },
           {
             name: "Bulma",
-            type: "American Bully XL",
+            type: "American Bully Classic",
             color: "Champagne",
-            bloodline: "BGK x Showtime",
+            bloodline: "American Bully Classic",
             image: "/images/bulma.png",
             features: ["Fêmea Premium", "Produção Elite", "Padrão Internacional"],
             link: "https://www.instagram.com/p/DMk5_CPM6Qg/"
@@ -132,12 +153,16 @@ export default function Home() {
         ]
       },
       exclusive: {
-        title: "Alpha Exclusive",
-        subtitle: "Novas linhagens e planejamentos exclusivos. Reservas limitadas para clientes selecionados.",
-        cardTitle: "Próximas Linhagens em Planejamento",
-        cardText: "Estamos preparando cruzamentos exclusivos com as melhores linhagens internacionais.",
-        btn: "Solicitar Informações Exclusivas",
-        predictions: ["Previsão: Janeiro 2025", "Previsão: Março 2025", "Previsão: Maio 2025"]
+        title: "Curiosidades Alpha",
+        subtitle: "Conheça mais sobre a força e o temperamento das nossas raças de elite.",
+        cardTitle: "Você Sabia?",
+        cardText: "O American Bully XL e o Brazilian Bull são conhecidos por sua aparência imponente, mas o que realmente os define é o seu temperamento dócil e leal à família.",
+        btn: "Ver Mais Curiosidades",
+        facts: [
+          { title: "Temperamento", desc: "Apesar do tamanho, são cães extremamente carinhosos e excelentes com crianças." },
+          { title: "Estrutura", desc: "O Brazilian Bull é uma raça desenvolvida no Brasil focada em massa muscular e rusticidade." },
+          { title: "Inteligência", desc: "São cães de fácil adestramento quando estimulados corretamente desde filhotes." }
+        ]
       },
       testimonials: {
         title: "Alpha Family Worldwide",
@@ -153,9 +178,24 @@ export default function Home() {
         subtitle: "Conteúdo exclusivo sobre genética, cuidados, treinamento e novidades do kennel.",
         btn: "Ler Mais",
         list: [
-          { title: "Nutrição de Elite para American Bully XL", excerpt: "Descubra os segredos da alimentação que mantém nossos cães com saúde.", date: "15 Nov 2024" },
-          { title: "Genética: Como Selecionamos Linhagens", excerpt: "Entenda nosso processo rigoroso de seleção genética.", date: "08 Nov 2024" },
-          { title: "Exportação Internacional: Guia Completo", excerpt: "Tudo sobre documentação, transporte e cuidados para receber seu Alpha.", date: "01 Nov 2024" }
+          { 
+            title: "O Crescimento do American Bully XL no Brasil", 
+            excerpt: "Entenda por que a raça American Bully XL se tornou uma das mais desejadas por famílias brasileiras em 2024.", 
+            date: "10 Jan 2025",
+            link: "https://www.instagram.com/lionsalphakennel/"
+          },
+          { 
+            title: "Brazilian Pit Monster: A Força Nacional", 
+            excerpt: "Conheça a história e o padrão da raça Brazilian Bull (Pit Monster), o orgulho da cinofilia brasileira.", 
+            date: "05 Jan 2025",
+            link: "https://www.instagram.com/lionsalphakennel/"
+          },
+          { 
+            title: "Cuidados Essenciais com Filhotes de Grande Porte", 
+            excerpt: "Dicas fundamentais de nutrição e exercícios para o desenvolvimento saudável do seu filhote Alpha.", 
+            date: "28 Dez 2024",
+            link: "https://www.instagram.com/lionsalphakennel/"
+          }
         ]
       },
       contact: {
@@ -321,14 +361,41 @@ export default function Home() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background relative">
-      {/* IMPORTANTE: Atualize seu arquivo Header.tsx para aceitar as props:
-         - currentLang (string)
-         - onToggleLanguage (function)
-      */}
-      <Header currentLang={lang} onToggleLanguage={toggleLanguage} />
+      <Header />
 
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <main className="flex-1 pt-20">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <div className="sticky top-20 z-40 bg-background/95 backdrop-blur-sm border-b border-border overflow-x-auto no-scrollbar">
+            <div className="container mx-auto px-4">
+              <TabsList className="h-14 bg-transparent w-full justify-start gap-4 p-0">
+                <TabsTrigger value="home" className="data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-0 px-4 h-full transition-all">
+                  <Globe className="h-4 w-4 mr-2" /> {tI18n("nav.home")}
+                </TabsTrigger>
+                <TabsTrigger value="about" className="data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-0 px-4 h-full transition-all">
+                  <Info className="h-4 w-4 mr-2" /> {tI18n("nav.about")}
+                </TabsTrigger>
+                <TabsTrigger value="dogs" className="data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-0 px-4 h-full transition-all">
+                  <Dog className="h-4 w-4 mr-2" /> {tI18n("nav.dogs")}
+                </TabsTrigger>
+                <TabsTrigger value="available" className="data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-0 px-4 h-full transition-all">
+                  <Star className="h-4 w-4 mr-2" /> {tI18n("nav.available")}
+                </TabsTrigger>
+                <TabsTrigger value="blog" className="data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-0 px-4 h-full transition-all">
+                  <Newspaper className="h-4 w-4 mr-2" /> {tI18n("nav.blog")}
+                </TabsTrigger>
+                <TabsTrigger value="contact" className="data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-0 px-4 h-full transition-all">
+                  <Mail className="h-4 w-4 mr-2" /> {tI18n("nav.contact")}
+                </TabsTrigger>
+                <TabsTrigger value="partners" className="data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none border-0 px-4 h-full transition-all">
+                  <Handshake className="h-4 w-4 mr-2" /> {tI18n("nav.partners")}
+                </TabsTrigger>
+              </TabsList>
+            </div>
+          </div>
+
+          <TabsContent value="home" className="mt-0 outline-none">
+            {/* Hero Section */}
+            <section className="relative min-h-[calc(100vh-136px)] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
             src="/images/hero-dog.jpg" 
@@ -377,8 +444,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Sobre Nós */}
-      <section id="about" className="py-24 bg-card">
+          </TabsContent>
+
+          <TabsContent value="about" className="mt-0 outline-none">
+            {/* Sobre Nós */}
+            <section id="about" className="py-24 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
@@ -441,8 +511,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Nossos Cães */}
-      <section id="dogs" className="py-24 bg-background">
+            {/* Experiência Alpha */}
+            <section id="experience" className="py-24 bg-background">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {t.experience.title}
+                  </h2>
+                  <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                  <p className="text-lg text-muted-foreground">
+                    {t.experience.subtitle}
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {t.experience.cards.map((card, index) => {
+                    // Mapeando ícones manualmente baseado no índice para simplificar
+                    const Icons = [Users, Shield, Globe, Heart, Award, Star];
+                    const Icon = Icons[index];
+                    return (
+                      <Card key={index} className="bg-background border-primary/20 hover:border-primary transition-colors">
+                        <CardContent className="p-8">
+                          <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                            <Icon className="h-8 w-8 text-primary" />
+                          </div>
+                          <h3 className="text-xl font-bold mb-4 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                            {card.title}
+                          </h3>
+                          <p className="text-muted-foreground leading-relaxed">
+                            {card.text}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    )
+                  })}
+                </div>
+              </div>
+            </section>
+
+            {/* Depoimentos */}
+            <section id="testimonials" className="py-24 bg-card">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {t.testimonials.title}
+                  </h2>
+                  <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                  <p className="text-lg text-muted-foreground">
+                    {t.testimonials.subtitle}
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                  {t.testimonials.list.map((testimonial, index) => (
+                    <Card key={index} className="bg-background border-primary/20 hover:shadow-xl transition-shadow">
+                      <CardContent className="p-8">
+                        <div className="flex gap-1 mb-4">
+                          {[...Array(testimonial.rating)].map((_, i) => (
+                            <Star key={i} className="h-5 w-5 fill-primary text-primary" />
+                          ))}
+                        </div>
+                        <p className="text-muted-foreground mb-6 leading-relaxed italic">
+                          "{testimonial.text}"
+                        </p>
+                        <div className="border-t border-border pt-4">
+                          <p className="font-semibold text-foreground">{testimonial.name}</p>
+                          <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
+                            <Globe className="h-4 w-4 text-primary" />
+                            {testimonial.country}
+                          </p>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </TabsContent>
+
+          <TabsContent value="dogs" className="mt-0 outline-none">
+            {/* Nossos Cães */}
+            <section id="dogs" className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
@@ -510,8 +659,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Conheça Nossas Colorações */}
-      <section id="colorations" className="py-24 bg-card">
+            {/* Conheça Nossas Colorações */}
+            <section id="colorations" className="py-24 bg-card">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="max-w-4xl mx-auto text-center mb-12">
@@ -574,133 +723,117 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Experiência Alpha */}
-      <section id="experience" className="py-24 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-              {t.experience.title}
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-            <p className="text-lg text-muted-foreground">
-              {t.experience.subtitle}
-            </p>
-          </div>
+          </TabsContent>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {t.experience.cards.map((card, index) => {
-              // Mapeando ícones manualmente baseado no índice para simplificar
-              const Icons = [Users, Shield, Globe, Heart, Award, Star];
-              const Icon = Icons[index];
-              return (
-                <Card key={index} className="bg-background border-primary/20 hover:border-primary transition-colors">
-                  <CardContent className="p-8">
-                    <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                      <Icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-bold mb-4 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-                      {card.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {card.text}
-                    </p>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Disponíveis / Alpha Exclusive */}
-      <section id="available" className="py-24 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-              {t.exclusive.title}
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-            <p className="text-lg text-muted-foreground">
-              {t.exclusive.subtitle}
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-gradient-to-br from-card to-card/50 border-primary/30 shadow-2xl">
-              <CardContent className="p-12 text-center">
-                <div className="bg-primary/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
-                  <Trophy className="h-12 w-12 text-primary" />
-                </div>
-                <h3 className="text-3xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-                  {t.exclusive.cardTitle}
-                </h3>
-                <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                  {t.exclusive.cardText}
-                </p>
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  <div className="bg-background/50 rounded-lg p-6">
-                    <h4 className="font-semibold text-primary mb-2">Simba x Elite Line</h4>
-                    <p className="text-sm text-muted-foreground">{t.exclusive.predictions[0]}</p>
-                  </div>
-                  <div className="bg-background/50 rounded-lg p-6">
-                    <h4 className="font-semibold text-primary mb-2">Bardock x Champion</h4>
-                    <p className="text-sm text-muted-foreground">{t.exclusive.predictions[1]}</p>
-                  </div>
-                  <div className="bg-background/50 rounded-lg p-6">
-                    <h4 className="font-semibold text-primary mb-2">Bulma x International</h4>
-                    <p className="text-sm text-muted-foreground">{t.exclusive.predictions[2]}</p>
-                  </div>
-                </div>
-                <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6">
-                  <a href="#contact">{t.exclusive.btn}</a>
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Depoimentos */}
-      <section id="testimonials" className="py-24 bg-card">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-              {t.testimonials.title}
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-            <p className="text-lg text-muted-foreground">
-              {t.testimonials.subtitle}
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {t.testimonials.list.map((testimonial, index) => (
-              <Card key={index} className="bg-background border-primary/20 hover:shadow-xl transition-shadow">
-                <CardContent className="p-8">
-                  <div className="flex gap-1 mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-muted-foreground mb-6 leading-relaxed italic">
-                    "{testimonial.text}"
+          <TabsContent value="available" className="mt-0 outline-none">
+            {/* Nosso Canil / Instagram Feed */}
+            <section id="kennel" className="py-24 bg-background">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {tI18n("nav.available")}
+                  </h2>
+                  <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                  <p className="text-lg text-muted-foreground">
+                    Acompanhe o dia a dia do nosso canil, novos filhotes e a rotina da nossa matilha Alpha.
                   </p>
-                  <div className="border-t border-border pt-4">
-                    <p className="font-semibold text-foreground">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-2 mt-1">
-                      <Globe className="h-4 w-4 text-primary" />
-                      {testimonial.country}
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+                </div>
 
-      {/* Blog */}
-      <section id="blog" className="py-24 bg-background">
+                {/* Instagram Integration - Destaque para Imagens */}
+                <div className="mb-16">
+                  <Card className="overflow-hidden border-primary/20 bg-card shadow-2xl">
+                    <CardContent className="p-0">
+                      <div className="bg-primary/10 p-6 flex items-center justify-between border-b border-primary/10">
+                        <div className="flex items-center gap-3">
+                          <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-2 rounded-full shadow-lg">
+                            <Instagram className="h-6 w-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-foreground text-lg">@lionsalphakennel</h3>
+                            <p className="text-sm text-muted-foreground">Posts, Reels e Stories diários</p>
+                          </div>
+                        </div>
+                        <Button variant="default" size="md" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                          <a href="https://www.instagram.com/lionsalphakennel/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                            Seguir Canil <ExternalLink className="h-4 w-4" />
+                          </a>
+                        </Button>
+                      </div>
+                      
+                      <div className="p-4 md:p-8">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                          {[
+                            { id: 1, img: "/insta/1.jpg" },
+                            { id: 2, img: "/insta/2.jpg" },
+                            { id: 3, img: "/insta/3.jpg" },
+                            { id: 4, img: "/insta/4.jpg" },
+                            { id: 5, img: "/insta/5.jpg" },
+                            { id: 6, img: "/insta/6.jpg" },
+                            { id: 7, img: "/insta/7.jpg" },
+                            { id: 8, img: "/insta/8.jpg" }
+                          ].map((post) => (
+                            <div key={post.id} className="aspect-square bg-muted rounded-xl flex items-center justify-center overflow-hidden group relative shadow-md hover:shadow-xl transition-all duration-500">
+                              <img 
+                                src={post.img} 
+                                alt="Instagram Post" 
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+                              />
+                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <Instagram className="h-10 w-10 text-white" />
+                              </div>
+                              <a 
+                                href="https://www.instagram.com/lionsalphakennel/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="absolute inset-0 z-10"
+                              ></a>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="mt-12 text-center">
+                          <p className="text-muted-foreground max-w-2xl mx-auto italic">
+                            "Nossa transparência é o que nos define. Veja em tempo real como cuidamos de cada exemplar da nossa linhagem."
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div className="max-w-4xl mx-auto">
+                  <Card className="bg-gradient-to-br from-card to-card/50 border-primary/30 shadow-2xl">
+                    <CardContent className="p-12 text-center">
+                      <div className="bg-primary/10 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <Info className="h-12 w-12 text-primary" />
+                      </div>
+                      <h3 className="text-3xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                        {t.exclusive.cardTitle}
+                      </h3>
+                      <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+                        {t.exclusive.cardText}
+                      </p>
+                      <div className="grid md:grid-cols-3 gap-6 mb-8">
+                        {t.exclusive.facts.map((fact, idx) => (
+                          <div key={idx} className="bg-background/50 rounded-lg p-6">
+                            <h4 className="font-semibold text-primary mb-2">{fact.title}</h4>
+                            <p className="text-sm text-muted-foreground">{fact.desc}</p>
+                          </div>
+                        ))}
+                      </div>
+                      <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6" asChild>
+                        <a href="https://www.instagram.com/lionsalphakennel/" target="_blank" rel="noopener noreferrer">{t.exclusive.btn}</a>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </section>
+
+          </TabsContent>
+
+          <TabsContent value="blog" className="mt-0 outline-none">
+            {/* Blog */}
+            <section id="blog" className="py-24 bg-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
@@ -714,17 +847,19 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {t.blog.list.map((post, index) => (
-              <Card key={index} className="bg-card border-border hover:border-primary transition-colors cursor-pointer">
+              <Card key={index} className="bg-card border-border hover:border-primary transition-colors group">
                 <CardContent className="p-8">
-                  <div className="text-sm text-primary mb-3">{post.date}</div>
-                  <h3 className="text-xl font-bold mb-4 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                  <div className="text-sm text-primary font-semibold mb-4">{post.date}</div>
+                  <h3 className="text-xl font-bold mb-4 text-foreground group-hover:text-primary transition-colors" style={{ fontFamily: 'var(--font-heading)' }}>
                     {post.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
                     {post.excerpt}
                   </p>
-                  <Button variant="outline" className="border-primary text-primary hover:bg-primary/10">
-                    {t.blog.btn} <ArrowRight className="ml-2 h-4 w-4" />
+                  <Button variant="link" className="p-0 text-primary hover:text-primary/80 font-bold" asChild>
+                    <a href={post.link} target="_blank" rel="noopener noreferrer">
+                      {t.blog.btn} <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
                   </Button>
                 </CardContent>
               </Card>
@@ -733,136 +868,144 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- SEÇÃO DE CONTATO --- */}
-      <section id="contact" className="py-24 bg-card">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-              {t.contact.title}
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-            <p className="text-lg text-muted-foreground">
-              {t.contact.subtitle}
-            </p>
-          </div>
+          </TabsContent>
 
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-bold mb-6 text-center text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-                  {t.contact.direct}
-                </h3>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {/* WhatsApp */}
-                  <Card className="bg-background border-primary/20 hover:border-primary transition-colors">
-                    <CardContent className="p-6">
-                      <a 
-                        href="https://wa.me/5511971651993?text=Olá!%20Quero%20Saber%20mais%20a%20respeito%20do%20american%20bully" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-4"
-                      >
-                        <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center">
-                          <MessageCircle className="h-6 w-6 text-primary" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground">{t.contact.whatsapp}</h4>
-                          <p className="text-sm text-muted-foreground">{t.contact.whatsappSub}</p>
-                        </div>
-                      </a>
-                    </CardContent>
-                  </Card>
+          <TabsContent value="contact" className="mt-0 outline-none">
+            {/* --- SEÇÃO DE CONTATO --- */}
+            <section id="contact" className="py-24 bg-card">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {t.contact.title}
+                  </h2>
+                  <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                  <p className="text-lg text-muted-foreground">
+                    {t.contact.subtitle}
+                  </p>
+                </div>
 
-                  {/* Instagram */}
-                  <Card className="bg-background border-primary/20 hover:border-primary transition-colors">
-                    <CardContent className="p-6">
-                      <a 
-                        href="https://www.instagram.com/lionsalphakennel/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-4"
-                      >
-                        <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center">
-                          <Instagram className="h-6 w-6 text-primary" />
+                <div className="max-w-3xl mx-auto">
+                  <div className="space-y-8">
+                    <div>
+                      <h3 className="text-2xl font-bold mb-6 text-center text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                        {t.contact.direct}
+                      </h3>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        {/* WhatsApp */}
+                        <Card className="bg-background border-primary/20 hover:border-primary transition-colors">
+                          <CardContent className="p-6">
+                            <a 
+                              href="https://wa.me/5511971651993?text=Olá!%20Quero%20Saber%20mais%20a%20respeito%20do%20american%20bully" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-4"
+                            >
+                              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center">
+                                <MessageCircle className="h-6 w-6 text-primary" />
+                              </div>
+                              <div>
+                                <h4 className="font-semibold text-foreground">{t.contact.whatsapp}</h4>
+                                <p className="text-sm text-muted-foreground">{t.contact.whatsappSub}</p>
+                              </div>
+                            </a>
+                          </CardContent>
+                        </Card>
+
+                        {/* Instagram */}
+                        <Card className="bg-background border-primary/20 hover:border-primary transition-colors">
+                          <CardContent className="p-6">
+                            <a 
+                              href="https://www.instagram.com/lionsalphakennel/" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-4"
+                            >
+                              <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center">
+                                <Instagram className="h-6 w-6 text-primary" />
+                              </div>
+                              <div>
+                                <h4 className="font-semibold text-foreground">Instagram</h4>
+                                <p className="text-sm text-muted-foreground">@lionsalphakennel</p>
+                              </div>
+                            </a>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    </div>
+
+                    {/* Localização */}
+                    <div className="bg-background border border-primary/20 rounded-lg p-8 text-center md:text-left flex flex-col md:flex-row items-center justify-center gap-6">
+                       <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0">
+                          <Globe className="h-8 w-8 text-primary" />
+                       </div>
+                       <div className="text-left">
+                          <h4 className="font-semibold text-foreground mb-2 text-xl">{t.contact.locationTitle}</h4>
+                          <p className="text-muted-foreground leading-relaxed">
+                            <strong className="text-foreground">Lions Alpha Kennel</strong><br />
+                            Camaçari / Salvador - Bahia - Brasil<br />
+                            <span className="text-primary font-medium">{t.contact.locationSub}</span>
+                          </p>
+                       </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </section>
+          </TabsContent>
+
+          <TabsContent value="partners" className="mt-0 outline-none">
+            {/* Nossos Parceiros */}
+            <section id="partners" className="py-24 bg-background">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="max-w-4xl mx-auto text-center mb-16">
+                  <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                    {t.partners.title}
+                  </h2>
+                  <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+                  <p className="text-lg text-muted-foreground">
+                    {t.partners.subtitle}
+                  </p>
+                </div>
+
+                <div className="max-w-2xl mx-auto">
+                  <Card className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-2xl">
+                    <CardContent className="p-8">
+                      <div className="flex flex-col md:flex-row items-center gap-6">
+                        <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
+                          <Handshake className="h-10 w-10 text-primary" />
                         </div>
-                        <div>
-                          <h4 className="font-semibold text-foreground">Instagram</h4>
-                          <p className="text-sm text-muted-foreground">@lionsalphakennel</p>
+                        <div className="flex-1 text-center md:text-left">
+                          <h3 className="text-2xl font-bold mb-3 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                            Petz
+                          </h3>
+                          <p className="text-muted-foreground leading-relaxed mb-4">
+                            {t.partners.petzText}
+                          </p>
+                          <Button 
+                            asChild
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                          >
+                            <a 
+                              href="https://www.petz.com.br/parceiro/Simbaebulma" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2"
+                            >
+                              {t.partners.btn}
+                              <ExternalLink className="h-4 w-4" />
+                            </a>
+                          </Button>
                         </div>
-                      </a>
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
               </div>
-
-              {/* Localização */}
-              <div className="bg-background border border-primary/20 rounded-lg p-8 text-center md:text-left flex flex-col md:flex-row items-center justify-center gap-6">
-                 <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Globe className="h-8 w-8 text-primary" />
-                 </div>
-                 <div className="text-left">
-                    <h4 className="font-semibold text-foreground mb-2 text-xl">{t.contact.locationTitle}</h4>
-                    <p className="text-muted-foreground leading-relaxed">
-                      <strong className="text-foreground">Lions Alpha Kennel</strong><br />
-                      Camaçari / Salvador - Bahia - Brasil<br />
-                      <span className="text-primary font-medium">{t.contact.locationSub}</span>
-                    </p>
-                 </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Nossos Parceiros */}
-      <section id="partners" className="py-24 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-              {t.partners.title}
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-            <p className="text-lg text-muted-foreground">
-              {t.partners.subtitle}
-            </p>
-          </div>
-
-          <div className="max-w-2xl mx-auto">
-            <Card className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-2xl">
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Handshake className="h-10 w-10 text-primary" />
-                  </div>
-                  <div className="flex-1 text-center md:text-left">
-                    <h3 className="text-2xl font-bold mb-3 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-                      Petz
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed mb-4">
-                      {t.partners.petzText}
-                    </p>
-                    <Button 
-                      asChild
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                    >
-                      <a 
-                        href="https://www.petz.com.br/parceiro/Simbaebulma" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2"
-                      >
-                        {t.partners.btn}
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
+            </section>
+          </TabsContent>
+        </Tabs>
+      </main>
 
       <Footer />
     </div>

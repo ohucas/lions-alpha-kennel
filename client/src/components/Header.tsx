@@ -1,23 +1,27 @@
 import { useState } from "react";
 import { Link } from "wouter";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Languages } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { APP_LOGO } from "@/const";
 
 export default function Header() {
+  const { t, i18n } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const toggleLanguage = () => {
+    const newLang = i18n.language === "pt" ? "en" : "pt";
+    i18n.changeLanguage(newLang);
+  };
+
   const navigation = [
-    { name: "Início", href: "/" },
-    { name: "Sobre", href: "#about" },
-    { name: "Nossos Cães", href: "#dogs" },
-    { name: "Colorações", href: "#colorations" },
-    { name: "Experiência Alpha", href: "#experience" },
-    { name: "Disponíveis", href: "#available" },
-    { name: "Depoimentos", href: "#testimonials" },
-    { name: "Blog", href: "#blog" },
-    { name: "Contato", href: "#contact" },
-    { name: "Parceiros", href: "#partners" },
+    { name: t("nav.home"), href: "/" },
+    { name: t("nav.about"), href: "#about" },
+    { name: t("nav.dogs"), href: "#dogs" },
+    { name: t("nav.available"), href: "#kennel" },
+    { name: t("nav.blog"), href: "#blog" },
+    { name: t("nav.contact"), href: "#contact" },
+    { name: t("nav.partners"), href: "#partners" },
   ];
 
   return (
@@ -48,6 +52,17 @@ export default function Header() {
                 {item.name}
               </a>
             ))}
+            
+            {/* Language Switcher */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary"
+            >
+              <Languages className="h-4 w-4" />
+              {i18n.language === "pt" ? "EN" : "PT"}
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -74,6 +89,22 @@ export default function Header() {
                 {item.name}
               </a>
             ))}
+            
+            {/* Mobile Language Switcher */}
+            <div className="px-4 py-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  toggleLanguage();
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full flex items-center justify-center gap-2"
+              >
+                <Languages className="h-4 w-4" />
+                {i18n.language === "pt" ? "English (EN)" : "Português (PT)"}
+              </Button>
+            </div>
           </div>
         )}
       </nav>

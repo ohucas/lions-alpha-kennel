@@ -89,24 +89,6 @@ export default function Header() {
                 {item.name}
               </a>
             ))}
-            
-            {/* Mobile Language Switcher */}
-            <div className="px-4 py-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  toggleLanguage();
-                  setMobileMenuOpen(false);
-                }}
-                className="w-full flex items-center justify-center gap-2"
-              >
-                <Languages className="h-4 w-4" />
-                {i18n.language === "pt" ? "English (EN)" : "Português (PT)"}
-              </Button>
-            </div>
-          </div>
-        )}
       </nav>
     </header>
   );

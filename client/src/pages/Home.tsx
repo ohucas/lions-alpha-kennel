@@ -97,7 +97,7 @@ export default function Home() {
           {
             name: "Bardock",
             type: "Brazilian Bull",
-            color: "Tri-Color",
+            color: "Champagne",
             bloodline: "Brazilian Bull",
             image: "/images/Bardock.png",
             features: ["Massa Muscular", "Cabeça Poderosa", "Linhagem Exclusiva"],
@@ -106,7 +106,7 @@ export default function Home() {
           {
             name: "Bulma",
             type: "American Bully Classic",
-            color: "Champagne",
+            color: "Blue Merle",
             bloodline: "American Bully Classic",
             image: "/images/bulma.png",
             features: ["Fêmea Premium", "Produção Elite", "Padrão Internacional"],
@@ -253,7 +253,7 @@ export default function Home() {
           {
             name: "Bardock",
             type: "Brazilian Bull",
-            color: "Tri-Color",
+            color: "Champagne",
             bloodline: "Pit Monster Elite",
             image: "/images/Bardock.png",
             features: ["Muscle Mass", "Powerful Head", "Exclusive Bloodline"],
@@ -262,7 +262,7 @@ export default function Home() {
           {
             name: "Bulma",
             type: "American Bully XL",
-            color: "Champagne",
+            color: "Blue Merle",
             bloodline: "BGK x Showtime",
             image: "/images/bulma.png",
             features: ["Premium Female", "Elite Production", "International Standard"],

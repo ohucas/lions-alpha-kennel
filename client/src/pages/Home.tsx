@@ -62,7 +62,7 @@ export default function Home() {
         location: "Bahia - Brasil | Exportação Mundial",
         title: "Lions Alpha Kennel",
         subtitle: "Melhores Bullys. DNA Alpha.",
-        desc: "American Bully XL e Brazilian Bull com genética de elite reconhecida internacionalmente.",
+        desc: "AMERICAN BULLY and BRAZILIAN BULL 🧬 XL, Standard, Classic, Pocket com genética de elite reconhecida internacionalmente.",
         btnDogs: "Conheça Nossa Matilha",
         btnContact: "Contato Internacional",
         stats: { countries: "Países Atendidos", clients: "Clientes Satisfeitos", years: "Anos de Experiência" }
@@ -393,58 +393,79 @@ export default function Home() {
             </div>
           </div>
 
-          <TabsContent value="home" className="mt-0 outline-none">
-            {/* Hero Section */}
-            <section className="relative min-h-[calc(100vh-136px)] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="/images/hero-dog.jpg" 
-            alt="Lions Alpha Kennel" 
-            className="w-full h-full object-cover opacity-40"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background"></div>
-        </div>
-        
-        <div className="container relative z-10 text-center px-4 sm:px-6 lg:px-8">
-          <Badge className="mb-6 text-sm px-4 py-2 bg-primary/20 text-primary border-primary/30">
-            {t.hero.location}
-          </Badge>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-            {t.hero.title}
-          </h1>
-          <p className="text-2xl md:text-3xl lg:text-4xl text-primary font-semibold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
-            {t.hero.subtitle}
-          </p>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            {t.hero.desc}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground">
-              <a href="#dogs">{t.hero.btnDogs}</a>
-            </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-primary text-primary hover:bg-primary/10">
-              <a href="#contact">{t.hero.btnContact}</a>
-            </Button>
-          </div>
-          
-          <div className="grid grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--font-heading)' }}>15+</div>
-              <div className="text-sm text-muted-foreground">{t.hero.stats.countries}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--font-heading)' }}>500+</div>
-              <div className="text-sm text-muted-foreground">{t.hero.stats.clients}</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--font-heading)' }}>10+</div>
-              <div className="text-sm text-muted-foreground">{t.hero.stats.years}</div>
-            </div>
-          </div>
-        </div>
-      </section>
+<TabsContent value="home" className="mt-0 outline-none">
+  {/* Hero Section */}
+  <section className="relative min-h-[calc(100vh-136px)] flex items-center justify-center overflow-hidden">
+    {/* Imagem de Fundo */}
+    <div className="absolute inset-0 z-0">
+      <img 
+        src="/images/hero-dog.jpg" 
+        alt="Lions Alpha Kennel" 
+        className="w-full h-full object-cover opacity-40"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background"></div>
+    </div>
+    
+    {/* Conteúdo Central */}
+    <div className="container relative z-10 text-center px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+      
+      {/* Logo Centralizada */}
+      <img 
+        src="/images/logo-2.png" 
+        alt="Lions Alpha Logo" 
+        className="w-32 md:w-48 h-auto mb-6 animate-in fade-in zoom-in duration-700" 
+      />
 
-          </TabsContent>
+      {/* Selo de Localização */}
+      <Badge className="mb-6 text-sm px-4 py-2 bg-primary/20 text-primary border-primary/30">
+        {t.hero.location}
+      </Badge>
+
+      {/* Título Principal */}
+      <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+        {t.hero.title}
+      </h1>
+
+      {/* Subtítulo */}
+      <p className="text-2xl md:text-3xl lg:text-4xl text-primary font-semibold mb-4" style={{ fontFamily: 'var(--font-heading)' }}>
+        {t.hero.subtitle}
+      </p>
+
+      {/* Descrição */}
+      <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+        {t.hero.desc}
+      </p>
+
+      {/* Botões de Ação */}
+      <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground">
+          <a href="#dogs">{t.hero.btnDogs}</a>
+        </Button>
+        <Button size="lg" variant="outline" className="text-lg px-8 py-6 border-primary text-primary hover:bg-primary/10">
+          <a href="#contact">{t.hero.btnContact}</a>
+        </Button>
+      </div>
+      
+      {/* Estatísticas */}
+      <div className="grid grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
+        <div className="text-center">
+          <div className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--font-heading)' }}>15+</div>
+          <div className="text-sm text-muted-foreground">{t.hero.stats.countries}</div>
+        </div>
+        <div className="text-center">
+          <div className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--font-heading)' }}>500+</div>
+          <div className="text-sm text-muted-foreground">{t.hero.stats.clients}</div>
+        </div>
+        <div className="text-center">
+          <div className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--font-heading)' }}>10+</div>
+          <div className="text-sm text-muted-foreground">{t.hero.stats.years}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</TabsContent>
+
+   
 
           <TabsContent value="about" className="mt-0 outline-none">
             {/* Sobre Nós */}
@@ -942,7 +963,7 @@ export default function Home() {
                           <h4 className="font-semibold text-foreground mb-2 text-xl">{t.contact.locationTitle}</h4>
                           <p className="text-muted-foreground leading-relaxed">
                             <strong className="text-foreground">Lions Alpha Kennel</strong><br />
-                            Camaçari / Salvador - Bahia - Brasil<br />
+                            Salvador - Bahia - Brasil<br />
                             <span className="text-primary font-medium">{t.contact.locationSub}</span>
                           </p>
                        </div>

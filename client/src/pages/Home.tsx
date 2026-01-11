@@ -395,7 +395,7 @@ export default function Home() {
 
 <TabsContent value="home" className="mt-0 outline-none">
   {/* Hero Section */}
-  <section className="relative min-h-[calc(100vh-136px)] flex items-center justify-center overflow-hidden">
+  <section className="relative min-h-[calc(100vh-136px)] flex flex-col items-center justify-center overflow-hidden">
     {/* Imagem de Fundo */}
     <div className="absolute inset-0 z-0">
       <img 
@@ -407,7 +407,7 @@ export default function Home() {
     </div>
     
     {/* Conteúdo Central */}
-    <div className="container relative z-10 text-center px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="container relative z-10 text-center px-4 sm:px-6 lg:px-8 flex flex-col items-center pt-12">
       
       {/* Logo Centralizada */}
       <img 
@@ -447,7 +447,7 @@ export default function Home() {
       </div>
       
       {/* Estatísticas */}
-      <div className="grid grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto">
+      <div className="grid grid-cols-3 gap-8 mt-16 max-w-3xl mx-auto mb-16">
         <div className="text-center">
           <div className="text-4xl font-bold text-primary mb-2" style={{ fontFamily: 'var(--font-heading)' }}>15+</div>
           <div className="text-sm text-muted-foreground">{t.hero.stats.countries}</div>
@@ -463,53 +463,55 @@ export default function Home() {
       </div>
     </div>
 
-    {/* Instagram Integration - Destaque para Imagens */}
-                <div className="mb-16">
-                  <Card className="overflow-hidden border-primary/20 bg-card shadow-2xl">
-                    <CardContent className="p-0">
-                      <div className="bg-primary/10 p-6 flex items-center justify-between border-b border-primary/10">
-                        <div className="flex items-center gap-3">
-                          <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-2 rounded-full shadow-lg">
-                            <Instagram className="h-6 w-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="font-bold text-foreground text-lg">@lionsalphakennel</h3>
-                            <p className="text-sm text-muted-foreground">Posts, Reels e Stories diários</p>
-                          </div>
-                        </div>
-                        <Button variant="default" size="md" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                          <a href="https://www.instagram.com/lionsalphakennel/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
-                            Seguir Canil <ExternalLink className="h-4 w-4" />
-                          </a>
-                        </Button>
-                      </div>
-                      
-                      <div className="p-4 md:p-8">
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                          {[
-                            { id: 1, img: "/insta/1.jpg" },
-                            { id: 2, img: "/insta/2.jpg" },
-                            { id: 3, img: "/insta/3.jpg" },
-                            { id: 4, img: "/insta/4.jpg" },
-                          ].map((post) => (
-                            <div key={post.id} className="aspect-square bg-muted rounded-xl flex items-center justify-center overflow-hidden group relative shadow-md hover:shadow-xl transition-all duration-500">
-                              <img 
-                                src={post.img} 
-                                alt="Instagram Post" 
-                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
-                              />
-                              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <Instagram className="h-10 w-10 text-white" />
-                              </div>
-                              <a 
-                                href="https://www.instagram.com/lionsalphakennel/" 
-                                target="_blank" 
-                                rel="noopener noreferrer"
-                                className="absolute inset-0 z-10"
-                              ></a>
-                            </div>
-                          ))}
-                        </div>
+    {/* Instagram Integration - Posicionado abaixo do conteúdo hero */}
+    <div className="container relative z-10 mb-16">
+      <Card className="overflow-hidden border-primary/20 bg-card shadow-2xl">
+        <div className="bg-primary/10 p-6 flex flex-col sm:flex-row items-center justify-between border-b border-primary/10 gap-4">
+          <div className="flex items-center gap-3">
+            <div className="bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 p-2 rounded-full shadow-lg">
+              <Instagram className="h-6 w-6 text-white" />
+            </div>
+            <div>
+              <h3 className="font-bold text-foreground text-lg">@lionsalphakennel</h3>
+              <p className="text-sm text-muted-foreground">Posts, Reels e Stories diários</p>
+            </div>
+          </div>
+          <Button variant="default" size="md" asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+            <a href="https://www.instagram.com/lionsalphakennel/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+              Seguir Canil <ExternalLink className="h-4 w-4" />
+            </a>
+          </Button>
+        </div>
+        
+        <div className="p-4 md:p-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { id: 1, img: "/insta/1.jpg" },
+              { id: 2, img: "/insta/2.jpg" },
+              { id: 3, img: "/insta/3.jpg" },
+              { id: 4, img: "/insta/4.jpg" },
+            ].map((post) => (
+              <div key={post.id} className="aspect-square bg-muted rounded-xl flex items-center justify-center overflow-hidden group relative shadow-md hover:shadow-xl transition-all duration-500">
+                <img 
+                  src={post.img} 
+                  alt="Instagram Post" 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90 group-hover:opacity-100"
+                />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <Instagram className="h-10 w-10 text-white" />
+                </div>
+                <a 
+                  href="https://www.instagram.com/lionsalphakennel/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="absolute inset-0 z-10"
+                ></a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Card>
+    </div>
   </section>
 </TabsContent>
 

@@ -21,7 +21,7 @@ export default function Footer() {
               Alpha Family Worldwide
             </p>
             <p className="text-sm text-muted-foreground">
-              Elite Bloodlines. DNA Alfa.
+              Elite Bloodlines. AMERICAN BULLY and BRAZILIAN BULL 🧬 XL, Standard, Classic, Pocket.
             </p>
           </div>
 

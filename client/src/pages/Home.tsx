@@ -975,56 +975,76 @@ export default function Home() {
             </section>
           </TabsContent>
 
-          <TabsContent value="partners" className="mt-0 outline-none">
-            {/* Nossos Parceiros */}
-            <section id="partners" className="py-24 bg-background">
-              <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-4xl mx-auto text-center mb-16">
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-                    {t.partners.title}
-                  </h2>
-                  <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-                  <p className="text-lg text-muted-foreground">
-                    {t.partners.subtitle}
-                  </p>
-                </div>
+<TabsContent value="partners" className="mt-0 outline-none">
+  {/* Nossos Parceiros */}
+  <section id="partners" className="py-24 bg-background">
+    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto text-center mb-16">
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+          {t.partners.title}
+        </h2>
+        <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
+        <p className="text-lg text-muted-foreground">
+          {t.partners.subtitle}
+        </p>
+      </div>
 
-                <div className="max-w-2xl mx-auto">
-                  <Card className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-2xl">
-                    <CardContent className="p-8">
-                      <div className="flex flex-col md:flex-row items-center gap-6">
-                        <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
-                          <Handshake className="h-10 w-10 text-primary" />
-                        </div>
-                        <div className="flex-1 text-center md:text-left">
-                          <h3 className="text-2xl font-bold mb-3 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
-                            Petz
-                          </h3>
-                          <p className="text-muted-foreground leading-relaxed mb-4">
-                            {t.partners.petzText}
-                          </p>
-                          <Button 
-                            asChild
-                            className="bg-primary hover:bg-primary/90 text-primary-foreground"
-                          >
-                            <a 
-                              href="https://www.petz.com.br/parceiro/Simbaebulma" 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2"
-                            >
-                              {t.partners.btn}
-                              <ExternalLink className="h-4 w-4" />
-                            </a>
-                          </Button>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
+      {/* Grid de Parceiros */}
+      <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        
+        {/* Card Petz */}
+        <Card className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-2xl">
+          <CardContent className="p-8">
+            <div className="flex flex-col items-center md:items-start gap-6">
+              <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
+                <Handshake className="h-10 w-10 text-primary" />
               </div>
-            </section>
-          </TabsContent>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold mb-3 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                  Petz
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  {t.partners.petzText}
+                </p>
+                <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <a href="https://www.petz.com.br/parceiro/Simbaebulma" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                    {t.partners.btn} <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Card PremieRpet */}
+        <Card className="bg-card border-primary/20 hover:border-primary transition-all duration-300 hover:shadow-2xl">
+          <CardContent className="p-8">
+            <div className="flex flex-col items-center md:items-start gap-6">
+              <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center flex-shrink-0">
+                <Award className="h-10 w-10 text-primary" />
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold mb-3 text-foreground" style={{ fontFamily: 'var(--font-heading)' }}>
+                  PremieRpet
+                </h3>
+                <p className="text-muted-foreground leading-relaxed mb-6">
+                  Nutrição de alta qualidade para a nossa matilha. Referência em saúde e bem-estar animal através da nutrição de elite.
+                </p>
+                <Button asChild className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                  <a href="https://premierpet.com.br/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2">
+                    {t.partners.btn} <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+      </div>
+    </div>
+  </section>
+</TabsContent>
+
         </Tabs>
       </main>
 

@@ -23,27 +23,27 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/">
-            <div className="flex items-center gap-3 cursor-pointer">
-              <img
-                src={APP_LOGO}
-                alt="Lions Alpha Kennel"
-                className="h-12 w-12"
-              />
-              <div className="flex flex-col">
-                <span
-                  className="text-xl font-bold text-primary"
-                  style={{ fontFamily: "var(--font-heading)" }}
-                >
-                  Lions Alpha
-                </span>
-                <span className="text-xs text-muted-foreground tracking-wider">
-                  KENNEL
-                </span>
-              </div>
-            </div>
-          </Link>
+ {/* Logo */}
+<a href="/">
+  <div className="flex items-center gap-3 cursor-pointer">
+    <img
+      src={APP_LOGO}
+      alt="Lions Alpha Kennel"
+      className="h-12 w-12"
+    />
+    <div className="flex flex-col">
+      <span
+        className="text-xl font-bold text-primary"
+        style={{ fontFamily: "var(--font-heading)" }}
+      >
+        Lions Alpha
+      </span>
+      <span className="text-xs text-muted-foreground tracking-wider">
+        KENNEL
+      </span>
+    </div>
+  </div>
+</a>
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-8">

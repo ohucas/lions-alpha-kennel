@@ -48,18 +48,18 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 text-primary" />
-                Camaçari/Salvador - Bahia, Brasil
+                Salvador - Bahia, Brasil
               </li>
               <li>
-                <a href="mailto:contato@lionsalphakennel.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="mailto:lionsalphakennel@gmail.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
                   <Mail className="h-4 w-4 text-primary" />
-                  contato@lionsalphakennel.com
+                  lionsalphakennel@gmail.com
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/5571999999999" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <a href="https://wa.me/5511971651993" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors">
                   <MessageCircle className="h-4 w-4 text-primary" />
-                  WhatsApp Internacional
+                  +55 (11) 97165-1993
                 </a>
               </li>
               <li>

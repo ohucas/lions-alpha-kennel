@@ -62,9 +62,9 @@ export default function Home() {
         location: "Bahia - Brasil | Exportação Mundial",
         title: "Lions Alpha Kennel",
         subtitle: "Melhores Bullys. DNA Alpha.",
-        desc: "AMERICAN BULLY and BRAZILIAN BULL 🧬 XL, Standard, Classic, Pocket com genética de elite reconhecida internacionalmente.",
+        desc: "AMERICAN BULLY - BRAZILIAN BULL 🧬 XL, Standard, Classic, Pocket com genética de elite reconhecida internacionalmente.",
         btnDogs: "Conheça Nossa Matilha",
-        btnContact: "Contato Internacional",
+        btnContact: "WhatsApp 📞",
         stats: { countries: "Países Atendidos", clients: "Clientes Satisfeitos", years: "Anos de Experiência" }
       },
       about: {
@@ -87,11 +87,11 @@ export default function Home() {
         list: [
           {
             name: "Simba",
-            type: "American Bully Standart",
-            color: "Blue Fawn",
-            bloodline: "American Bully Standart",
+            type: "American Bully",
+            color: "Tri Lilac",
+            bloodline: "American Bullyt",
             image: "/images/Simba.png",
-            features: ["Estrutura XXL", "Temperamento Equilibrado", "Genética Elite"],
+            features: ["Estrutura  Standard", "Temperamento Equilibrado", "Genética Elite"],
             link: "https://www.instagram.com/reel/DNdLBvsgNDP/"
           },
           {
@@ -243,11 +243,11 @@ export default function Home() {
         list: [
           {
             name: "Simba",
-            type: "American Bully XL",
-            color: "Blue Fawn",
+            type: "American Bully",
+            color: "Tri Lilac",
             bloodline: "The Hulk x Daxline",
             image: "/images/Simba.png",
-            features: ["XXL Structure", "Balanced Temperament", "Elite Genetics"],
+            features: ["Structure", "Balanced Temperament", "Elite Genetics"],
             link: "https://www.instagram.com/p/DFd0xcKSEK9/"
           },
           {
